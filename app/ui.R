@@ -7,13 +7,17 @@
 #    http://shiny.rstudio.com/
 #
 
+library(shinydashboard)
+library(DT)
 library(shiny)
+library(shinyWidgets)
+library(rhandsontable)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
 
     # Application title
-    titlePanel("Old Faithful Geyser Data"),
+    titlePanel("Treatment Effect Estimator"),
 
     # Sidebar with a slider input for number of bins
     sidebarLayout(
