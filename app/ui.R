@@ -19,19 +19,12 @@ shinyUI(fluidPage(
     # Application title
     titlePanel("Treatment Effect Estimator"),
 
-    # Sidebar with a slider input for number of bins
-    sidebarLayout(
-        sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
-        ),
-
-        # Show a plot of the generated distribution
-        mainPanel(
-            plotOutput("distPlot")
+    fluidRow(
+        column(
+            width = 8,
+            offset = 2,
+            h2("Hello World")
         )
+        
     )
 ))
