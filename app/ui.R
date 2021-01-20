@@ -12,18 +12,46 @@ library(DT)
 library(shiny)
 library(shinyWidgets)
 library(rhandsontable)
+library(shinyLP)
+library(shinyBS)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
 
     # Application title
-    titlePanel("Treatment Effect Estimator"),
+    titlePanel(""),
 
     fluidRow(
         column(
             width = 8,
             offset = 2,
-            h2("Hello World")
+            jumbotron(
+                header = 'Treatment Effect Estimator',
+                content = "Comparing simple linear regression to causal forest methods",
+                button = T,
+                buttonLabel = "Run"
+            ),
+            bsModal("importModal", "Import Data", "tabBut", size = "large",
+                    div(
+                        fluidRow(
+                            column(
+                                12, align = "center",
+                                fileInput("file1", "Choose CSV File",
+                                          multiple = FALSE,
+                                          accept = c("text/csv",
+                                                     "text/comma-separated-values,text/plain",
+                                                     ".csv")),
+                                uiOutput("dependent"),
+                                uiOutput("independents"),
+                                actionButton(inputId = "btn_modal_import",label = "Next",width = "50%",class = "btn-primary")
+                                
+                            )
+                        )
+                    )),
+            bsModal("tuneModal", "Tune Model",trigger = NULL,size = "large",
+                    uiOutput("tuneModalUI")),
+            bsModal("proModal", "Processing",trigger = NULL,size = "large",
+                    uiOutput("proModalUI"))
         )
         
     )
