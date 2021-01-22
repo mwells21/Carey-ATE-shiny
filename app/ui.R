@@ -46,7 +46,7 @@ shinyUI(fluidPage(
                                 uiOutput("dependent"),
                                 uiOutput("treatment"),
                                 uiOutput("independents"),
-                                actionButton(inputId = "btn_modal_import",label = "Next",width = "50%",class = "btn-primary"),
+                                actionButton(inputId = "btn_modal_import",label = "TUNE",width = "50%",class = "btn-primary"),
                                 tags$head(tags$style("#importModal .modal-footer{ display:none}"))
                                 
                             )
@@ -55,7 +55,7 @@ shinyUI(fluidPage(
             bsModal("tuneModal", "Tune Model",trigger = NULL,size = "large",
                     uiOutput("tuneModalUI"),
                     tags$head(tags$style("#tuneModal .modal-footer{ display:none}"))),
-            bsModal("proModal", "Processing",trigger = NULL,size = "large",
+            bsModal("proModal", "Results",trigger = NULL,size = "large",
                     uiOutput("proModalUI"),
                     tags$head(tags$style("#proModal .modal-footer{ display:none}")))
         )

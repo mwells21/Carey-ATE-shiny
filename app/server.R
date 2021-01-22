@@ -43,6 +43,20 @@ shinyServer(function(input, output, session) {
         return(lm_model)
     })
     
+    
+    
+    #---- Causal Forest Model----
+    runCausalForest = reactive({
+        
+        # user data 
+        dat = filedata()
+        
+        #
+        
+    })
+    
+    
+    
     #---- Modals ----
     
     importModal = function(failed = F){
@@ -69,7 +83,13 @@ shinyServer(function(input, output, session) {
         
         # Run linear model 
         lmModel = runLinearModel()
-        output$results = renderDataTable({as.data.frame(lmModel$coefficients)})
+        output$results = renderDataTable({
+            df = datatable(as.data.frame(lmModel$coefficients)) %>% formatStyle(names(df), backgroundColor = styleInterval(brks, clrs))
+        })
+        
+        
+        
+        
         remove_modal_spinner()
         
         
@@ -102,16 +122,21 @@ shinyServer(function(input, output, session) {
         selectInput("independents","Select ONE or MANY independent variables",items,multiple=TRUE)
     })
     
+    
+    output$importModalUI = renderUI({
+        
+    })
+    
     #---- Render Tune Modal UI ----
     
     output$tuneModalUI = renderUI({
-        actionButton(inputId = "btn_modal_tune",label = "test2")
+        actionButton(inputId = "btn_modal_tune",label = "RUN")
     })
     
     
     #---- Render Results Modal UI ----
     output$proModalUI = renderUI({
-        h2("Results")
+        h2("Linear Regression Results")
         dataTableOutput(outputId = "results")
     })
     
