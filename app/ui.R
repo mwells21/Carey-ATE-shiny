@@ -34,24 +34,8 @@ shinyUI(fluidPage(
                 buttonLabel = "Run"
             ),
             bsModal("importModal", "Import Data", "tabBut", size = "large",
-                    div(
-                        fluidRow(
-                            column(
-                                12, align = "center",
-                                fileInput("file1", "Choose CSV File",
-                                          multiple = FALSE,
-                                          accept = c("text/csv",
-                                                     "text/comma-separated-values,text/plain",
-                                                     ".csv")),
-                                uiOutput("dependent"),
-                                uiOutput("treatment"),
-                                uiOutput("independents"),
-                                actionButton(inputId = "btn_modal_import",label = "TUNE",width = "50%",class = "btn-primary"),
-                                tags$head(tags$style("#importModal .modal-footer{ display:none}"))
-                                
-                            )
-                        )
-                    )),
+                    uiOutput("importModalUI"),
+                    tags$head(tags$style("#importModal .modal-footer{ display:none}"))),
             bsModal("tuneModal", "Tune Model",trigger = NULL,size = "large",
                     uiOutput("tuneModalUI"),
                     tags$head(tags$style("#tuneModal .modal-footer{ display:none}"))),

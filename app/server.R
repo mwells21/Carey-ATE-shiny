@@ -84,7 +84,7 @@ shinyServer(function(input, output, session) {
         # Run linear model 
         lmModel = runLinearModel()
         output$results = renderDataTable({
-            df = datatable(as.data.frame(lmModel$coefficients)) %>% formatStyle(names(df), backgroundColor = styleInterval(brks, clrs))
+            df = datatable(as.data.frame(lmModel$coefficients))
         })
         
         
@@ -124,7 +124,23 @@ shinyServer(function(input, output, session) {
     
     
     output$importModalUI = renderUI({
-        
+        div(
+            fluidRow(
+                column(
+                    12, align = "center",
+                    fileInput("file1", "Choose CSV File",
+                              multiple = FALSE,
+                              accept = c("text/csv",
+                                         "text/comma-separated-values,text/plain",
+                                         ".csv")),
+                    uiOutput("dependent"),
+                    uiOutput("treatment"),
+                    uiOutput("independents"),
+                    actionButton(inputId = "btn_modal_import",label = "TUNE",width = "50%",class = "btn-primary")
+                    
+                )
+            )
+        )
     })
     
     #---- Render Tune Modal UI ----
