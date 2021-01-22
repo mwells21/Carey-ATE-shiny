@@ -14,6 +14,8 @@ library(shinyWidgets)
 library(rhandsontable)
 library(shinyLP)
 library(shinyBS)
+library(shinybusy)
+library(DT)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
@@ -42,16 +44,20 @@ shinyUI(fluidPage(
                                                      "text/comma-separated-values,text/plain",
                                                      ".csv")),
                                 uiOutput("dependent"),
+                                uiOutput("treatment"),
                                 uiOutput("independents"),
-                                actionButton(inputId = "btn_modal_import",label = "Next",width = "50%",class = "btn-primary")
+                                actionButton(inputId = "btn_modal_import",label = "Next",width = "50%",class = "btn-primary"),
+                                tags$head(tags$style("#importModal .modal-footer{ display:none}"))
                                 
                             )
                         )
                     )),
             bsModal("tuneModal", "Tune Model",trigger = NULL,size = "large",
-                    uiOutput("tuneModalUI")),
+                    uiOutput("tuneModalUI"),
+                    tags$head(tags$style("#tuneModal .modal-footer{ display:none}"))),
             bsModal("proModal", "Processing",trigger = NULL,size = "large",
-                    uiOutput("proModalUI"))
+                    uiOutput("proModalUI"),
+                    tags$head(tags$style("#proModal .modal-footer{ display:none}")))
         )
         
     )
