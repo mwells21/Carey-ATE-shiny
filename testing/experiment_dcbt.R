@@ -38,9 +38,11 @@ X = model.matrix(~ ., data = train[,c("age","female","salary","exp","score","hq"
 W = as.numeric(train$dcbt)
 Y = train$claims
 Y.hat <- predict(regression_forest(X, Y))$predictions
-W.hat <- rep(0.5, n)
+W.hat <- predict(regression_forest(X, W))$predictions
+
+# Tuned Parameters
 params <- tune_causal_forest(X, Y, W, Y.hat, W.hat)$params
-# Grab para
+
 
 
 # Train Model 
@@ -50,6 +52,25 @@ cf <- causal_forest(
   W = W,
   num.trees = 500,
   seed = 1839
+  
+)
+
+
+# Tuned Forest 
+cf_tuned <- causal_forest(
+  X = X,
+  Y = Y,
+  W = W,
+  num.trees = 500,
+  seed = 1839,
+  Y.hat = Y.hat, 
+  W.hat = W.hat, 
+  min.node.size = as.numeric(params["min.node.size"]),
+  sample.fraction = as.numeric(params["sample.fraction"]),
+  mtry = as.numeric(params["mtry"]),
+  alpha = as.numeric(params["alpha"]),
+  imbalance.penalty = as.numeric(params["imbalance.penalty"])
+  
 )
 
 
@@ -67,5 +88,10 @@ best_linear_projection(cf,model.matrix(~ ., data = train[,c("age","female","sala
 
 
 average_treatment_effect(cf, target.sample = "all")
+
+average_treatment_effect(cf_tuned, target.sample = "all")
+
+
+
 
 
