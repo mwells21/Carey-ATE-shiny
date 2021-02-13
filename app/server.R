@@ -136,7 +136,7 @@ shinyServer(function(input, output, session) {
                     uiOutput("dependent"),
                     uiOutput("treatment"),
                     uiOutput("independents"),
-                    actionButton(inputId = "btn_modal_import",label = "TUNE",width = "50%",class = "btn-primary")
+                    actionButton(inputId = "btn_modal_import",label = "TUNE",width = "20%",class = "btn-primary")
                     
                 )
             )
