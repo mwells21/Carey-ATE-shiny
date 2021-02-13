@@ -73,6 +73,12 @@ cf_tuned <- causal_forest(
   
 )
 
+# ATE Results 
+average_treatment_effect(cf, target.sample = "all")
+
+average_treatment_effect(cf_tuned, target.sample = "all")
+
+
 
 # generate predictions
 preds <- predict(
@@ -87,9 +93,6 @@ test$preds <- preds$predictions
 best_linear_projection(cf,model.matrix(~ ., data = train[,c("age","female","salary","exp","score","hq")]))
 
 
-average_treatment_effect(cf, target.sample = "all")
-
-average_treatment_effect(cf_tuned, target.sample = "all")
 
 
 
